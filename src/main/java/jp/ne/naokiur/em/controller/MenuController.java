@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "IndexController", urlPatterns = { "/" })
-public class IndexController extends HttpServlet {
+import jp.ne.naokiur.em.code.Site;
+
+@WebServlet(name = "MenuController", urlPatterns = { "/menu" })
+public class MenuController extends HttpServlet {
 
     /** Default serialize ID */
     private static final long serialVersionUID = 1L;
@@ -19,17 +21,17 @@ public class IndexController extends HttpServlet {
     /** ServletContext */
     private ServletContext context;
 
-    /** JSP file path */
-    private final String jspFile = "/WEB-INF/views/index.jsp";
-
     public void init() {
         context = getServletContext();
     }
 
-    public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+        System.out.println(req.getParameter("password"));
 
         HttpSession session = req.getSession();
-        session.setAttribute("welcome", "Welcome employee-management!");
-        context.getRequestDispatcher(jspFile).forward(req, res);
+        session.setAttribute("title", Site.MENU.getTitle());
+        context.getRequestDispatcher(Site.MENU.getJspPath()).forward(req, res);
     }
 }
