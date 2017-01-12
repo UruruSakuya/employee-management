@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.Site;
+import jp.ne.naokiur.em.dao.DatabaseAccessor;
 
 @WebServlet(name = "LoginController", urlPatterns = { "/" })
 public class LoginController extends HttpServlet {
@@ -28,14 +29,13 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
+        DatabaseAccessor.INSTANCE.connect();
         HttpSession session = req.getSession();
         session.setAttribute("title", Site.LOGIN.getTitle());
         context.getRequestDispatcher(Site.LOGIN.getJspPath()).forward(req, res);
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        System.out.println(req.getParameter("user"));
-        System.out.println(req.getParameter("password"));
 
         res.sendRedirect(Site.MENU.getUrl());
     }
