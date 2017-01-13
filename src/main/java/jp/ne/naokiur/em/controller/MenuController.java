@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.Site;
 
-@WebServlet(name = "MenuController", urlPatterns = { "/menu" })
+@WebServlet(name = "MenuController", urlPatterns = {"/menu"})
 public class MenuController extends HttpServlet {
 
     /** Default serialize ID */
@@ -27,8 +27,6 @@ public class MenuController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
-        System.out.println(req.getParameter("password"));
 
         HttpSession session = req.getSession();
         session.setAttribute("title", Site.MENU.getTitle());

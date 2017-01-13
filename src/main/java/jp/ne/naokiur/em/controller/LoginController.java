@@ -36,6 +36,9 @@ public class LoginController extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        session.setAttribute("authenticated-user", "Admin");
+
 
         res.sendRedirect(Site.MENU.getUrl());
     }
