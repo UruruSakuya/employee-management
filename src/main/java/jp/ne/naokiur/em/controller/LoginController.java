@@ -30,8 +30,10 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         DatabaseAccessor.INSTANCE.connect();
+
         HttpSession session = req.getSession();
         session.setAttribute("title", Site.LOGIN.getTitle());
+
         context.getRequestDispatcher(Site.LOGIN.getJspPath()).forward(req, res);
     }
 
@@ -40,6 +42,6 @@ public class LoginController extends HttpServlet {
         session.setAttribute("authenticated-user", "Admin");
 
 
-        res.sendRedirect(Site.MENU.getUrl());
+        res.sendRedirect(req.getContextPath() + Site.MENU.getUrl());
     }
 }

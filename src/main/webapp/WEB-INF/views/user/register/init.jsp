@@ -4,7 +4,7 @@
 <html>
 <jsp:include page="/WEB-INF/views/layouts/header.jsp"></jsp:include>
 <body>
-    menu
-    <jsp:include page="/WEB-INF/views/layouts/footer.jsp"></jsp:include>
+    register
 </body>
+    <jsp:include page="/WEB-INF/views/layouts/footer.jsp"></jsp:include>
 </html>

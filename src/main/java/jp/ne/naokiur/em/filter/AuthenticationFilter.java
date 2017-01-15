@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.Site;
 
-@WebFilter(filterName = "AuthenticationFilter", urlPatterns = { "/menu" })
+@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/user/*"})
 public class AuthenticationFilter implements Filter {
 
     @Override
@@ -23,15 +23,15 @@ public class AuthenticationFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
-        HttpSession session = ((HttpServletRequest) request).getSession();
+        HttpSession session = ((HttpServletRequest) req).getSession();
         String authenticatedName = (String) session.getAttribute("authenticated-user");
         if (authenticatedName != null && !"".equals(authenticatedName)) {
-            chain.doFilter(request, response);
+            chain.doFilter(req, res);
 
         } else {
-            ((HttpServletResponse) response).sendRedirect(Site.LOGIN.getUrl());
+            ((HttpServletResponse) res).sendRedirect(((HttpServletRequest) req).getContextPath() + Site.LOGIN.getUrl());
 
         }
     }

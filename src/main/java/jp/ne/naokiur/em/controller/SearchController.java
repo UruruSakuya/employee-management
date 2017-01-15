@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.Site;
 
-@WebServlet(name = "MenuController", urlPatterns = {"/user/menu"})
-public class MenuController extends HttpServlet {
+@WebServlet(name = "SearchController", urlPatterns = { "/user/search/*" })
+public class SearchController extends HttpServlet {
 
     /** Default serialize ID */
     private static final long serialVersionUID = 1L;
@@ -29,8 +29,7 @@ public class MenuController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
         HttpSession session = req.getSession();
-        session.setAttribute("title", Site.MENU.getTitle());
-
-        context.getRequestDispatcher(Site.MENU.getJspPath()).forward(req, res);
+        session.setAttribute("title", Site.SEARCH_INIT.getTitle());
+        context.getRequestDispatcher(Site.SEARCH_INIT.getJspPath()).forward(req, res);
     }
 }
