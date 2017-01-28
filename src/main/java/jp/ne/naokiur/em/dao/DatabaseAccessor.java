@@ -15,15 +15,22 @@ public enum DatabaseAccessor {
             Class.forName(ENV.getString("db.driver"));
             Connection conn = DriverManager.getConnection(ENV.getString("db.url"), ENV.getString("db.user"), ENV.getString("db.password"));
 
-            String sql = "create table if not exists user("
-                    + "id varchar(16) PRIMARY KEY NOT NULL,"
-                    + "name varchar(64) NOT NULL,"
-                    + "password text NOT NULL)";
-
-            PreparedStatement stmt = conn.prepareStatement(sql);
-
+            String createEmUsersSql = "CREATE TABLE IF NOT EXISTS EM_USERS ("
+                    + "ID VARCHAR(16) PRIMARY KEY NOT NULL,"
+                    + "PASSWORD TEXT NOT NULL)";
+            PreparedStatement stmt = conn.prepareStatement(createEmUsersSql);
             stmt.executeUpdate();
+            stmt.close();
 
+            String createEmployeeSql = "CREATE TABLE IF NOT EXISTS EM_EMPLOYEES ("
+                    + "ID VARCHAR(16) PRIMARY KEY NOT NULL,"
+                    + "FIRST_NAME VARCHAR(16),"
+                    + "LAST_NAME VARCHAR(16),"
+                    + "POST_CODE VARCHAR(2),"
+                    + "AGE INTEGER,"
+                    + "ENTER_DATE TIMESTAMP)";
+            stmt = conn.prepareStatement(createEmployeeSql);
+            stmt.executeUpdate();
             stmt.close();
 
             conn.close();
