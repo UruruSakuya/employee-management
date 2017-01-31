@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import jp.ne.naokiur.em.code.Site;
 import jp.ne.naokiur.em.dao.DatabaseAccessor;
 
-@WebServlet(name = "LoginController", urlPatterns = { "/" })
+@WebServlet(name = "LoginController", urlPatterns = { "/login" })
 public class LoginController extends HttpServlet {
 
     /** Default serialize ID */

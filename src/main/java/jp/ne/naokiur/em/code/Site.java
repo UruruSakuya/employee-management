@@ -1,7 +1,7 @@
 package jp.ne.naokiur.em.code;
 
 public enum Site {
-    LOGIN("/", "/WEB-INF/views/login.jsp", "login"),
+    LOGIN("/login", "/WEB-INF/views/login.jsp", "login"),
     MENU("/user/menu", "/WEB-INF/views/user/menu.jsp", "menu"),
     SEARCH_INIT("/user/search/init", "/WEB-INF/views/user/search/init.jsp", "search"),
     REGISTER_INIT("/user/register/init", "/WEB-INF/views/user/register/init.jsp", "register");
