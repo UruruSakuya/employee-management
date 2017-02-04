@@ -2,7 +2,8 @@
 
 html {
 	font-family: 'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo,
-		sans-serif
+		sans-serif;
+	background-color: #EFFAED;
 }
 
 header {
@@ -29,4 +30,12 @@ input {
 
 .menu-content {
 	margin: 0.5% 0% 0.5% 5%;
+}
+
+.register-items {
+	margin-left: 5%;
+}
+
+.register-item > label {
+    margin: 1% 1%;
 }

@@ -1,4 +1,4 @@
-package jp.ne.naokiur.em.controller;
+package jp.ne.naokiur.em.controller.register;
 
 import java.io.IOException;
 
@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.Site;
 
-@WebServlet(name = "RegisterController", urlPatterns = { "/user/register/*" })
-public class RegisterController extends HttpServlet {
+@WebServlet(name = "RegisterInitController", urlPatterns = { "/user/register/init" })
+public class RegisterInitController extends HttpServlet {
 
     /** Default serialize ID */
     private static final long serialVersionUID = 1L;

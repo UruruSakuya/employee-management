@@ -23,7 +23,7 @@ public enum InitialAccessor {
             stmt.close();
 
             String createEmployeeSql = "CREATE TABLE IF NOT EXISTS EM_EMPLOYEES ("
-                    + "id VARCHAR(16) PRIMARY KEY NOT NULL," + "first_name VARCHAR(16)," + "last_name VARCHAR(16),"
+                    + "user_id VARCHAR(16) PRIMARY KEY NOT NULL," + "first_name VARCHAR(16)," + "last_name VARCHAR(16),"
                     + "post_code VARCHAR(2)," + "age INTEGER," + "enter_date TIMESTAMP)";
             stmt = conn.prepareStatement(createEmployeeSql);
             stmt.executeUpdate();

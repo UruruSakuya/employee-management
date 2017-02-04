@@ -9,7 +9,7 @@
 		</div>
 		<div>
 			<input type="password" name="password" placeholder="パスワード" />
-				<input type="submit" value="login" />
+				<input type="submit" value="ログイン" />
 		</div>
 	</form>
 </div>
