@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.Site;
-import jp.ne.naokiur.em.dao.DatabaseAccessor;
+import jp.ne.naokiur.em.controller.model.LoginModel;
 
 @WebServlet(name = "LoginController", urlPatterns = { "/login" })
 public class LoginController extends HttpServlet {
@@ -29,8 +29,6 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        DatabaseAccessor.INSTANCE.connect();
-
         HttpSession session = req.getSession();
         session.setAttribute("title", Site.LOGIN.getTitle());
 
@@ -39,8 +37,15 @@ public class LoginController extends HttpServlet {
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        session.setAttribute("authenticated-user", "Admin");
 
+        String userId = req.getParameter("userId");
+        String password = req.getParameter("password");
+
+
+        if (new LoginModel().isMatchUser(userId, password)) {
+            session.setAttribute("authenticated-user", userId);
+
+        }
 
         res.sendRedirect(req.getContextPath() + Site.MENU.getUrl());
     }

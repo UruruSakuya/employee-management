@@ -4,7 +4,10 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 	<display-name>employee-management</display-name>
+	<listener>
+		<listener-class>jp.ne.naokiur.em.listener.InitialContextListener</listener-class>
+	</listener>
 	<welcome-file-list>
-	   <welcome-file>/WEB-INF/views/login.jsp</welcome-file>
+		<welcome-file>/WEB-INF/views/login.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>
