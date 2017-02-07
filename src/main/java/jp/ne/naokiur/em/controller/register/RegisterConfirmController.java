@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.Site;
 
@@ -26,8 +27,14 @@ public class RegisterConfirmController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        HttpSession session =  req.getSession();
+        session.setAttribute("user_id", req.getParameter("user_id"));
+        session.setAttribute("first_name", req.getParameter("first_name"));
+        session.setAttribute("last_name", req.getParameter("last_name"));
+        session.setAttribute("post_code", req.getParameter("post_code"));
+        session.setAttribute("age", req.getParameter("age"));
+        session.setAttribute("entry_date", req.getParameter("entry_date"));
 
-//        res.sendRedirect(req.getContextPath() + Site.REGISTER_CONFIRM.getUrl());
         context.getRequestDispatcher(Site.REGISTER_CONFIRM.getJspPath()).forward(req, res);
     }
 }

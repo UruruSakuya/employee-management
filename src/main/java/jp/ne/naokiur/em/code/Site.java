@@ -5,7 +5,8 @@ public enum Site {
     MENU("/user/menu", "/WEB-INF/views/user/menu.jsp", "menu"),
     SEARCH_INIT("/user/search/init", "/WEB-INF/views/user/search/init.jsp", "search"),
     REGISTER_INIT("/user/register/init", "/WEB-INF/views/user/register/init.jsp", "register"),
-    REGISTER_CONFIRM("/user/register/confirm", "/WEB-INF/views/user/register/confirm.jsp", "register");
+    REGISTER_CONFIRM("/user/register/confirm", "/WEB-INF/views/user/register/confirm.jsp", "register"),
+    REGISTER_COMPLETE("/user/register/complete", "/WEB-INF/views/user/register/complete.jsp", "register");
 
     private String url;
     private String jspPath;
