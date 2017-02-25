@@ -40,34 +40,28 @@ public enum UsersAccessor {
     }
 
     public String selectUserId(String userId, String password) {
-        Connection conn = null;
-        PreparedStatement stmt  = null;
-
         try {
             Class.forName(ENV.getString("db.driver"));
-            conn = DriverManager.getConnection(ENV.getString("db.url"), ENV.getString("db.user"), ENV.getString("db.password"));
-
-            String createEmUsersSql = "SELECT user_id FROM EM_USERS WHERE user_id = ? AND password = ?";
-            stmt = conn.prepareStatement(createEmUsersSql);
-            stmt.setString(1, userId);
-            stmt.setString(2, password);
-
-            ResultSet result = stmt.executeQuery();
-
-            if (result.next()) {
-                return result.getString(1);
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                stmt.close();
-                conn.close();
-            } catch (SQLException e) {
+        }
+
+        try (Connection conn = DriverManager.getConnection(ENV.getString("db.url"), ENV.getString("db.user"), ENV.getString("db.password")); ) {
+            String createEmUsersSql = "SELECT user_id FROM EM_USERS WHERE user_id = ? AND password = ?";
+
+            try (PreparedStatement stmt  =conn.prepareStatement(createEmUsersSql);) {
+                stmt.setString(1, userId);
+                stmt.setString(2, password);
+
+                ResultSet result = stmt.executeQuery();
+
+                if (result.next()) {
+                    return result.getString(1);
+                }
+
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         return "";
