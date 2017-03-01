@@ -7,8 +7,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import jp.ne.naokiur.em.dao.EmployeeAccessorImpl;
-import jp.ne.naokiur.em.dao.PostAccessor;
-import jp.ne.naokiur.em.dao.UsersAccessor;
+import jp.ne.naokiur.em.dao.PostAccessorImpl;
+import jp.ne.naokiur.em.dao.UsersAccessorImpl;
 import jp.ne.naokiur.em.dto.PostDto;
 import jp.ne.naokiur.em.dto.UserDto;
 
@@ -19,19 +19,19 @@ public class InitialContextListener implements ServletContextListener {
     }
 
     private void initializeDB() {
-        UsersAccessor.INSTANCE.createTable();
+        UsersAccessorImpl.INSTANCE.createTable();
         EmployeeAccessorImpl.INSTANCE.createTable();
-        PostAccessor.INSTANCE.createTable();
+        PostAccessorImpl.INSTANCE.createTable();
 
         String initialAccountUser = "admin";
         String initialAccountPassword = "admin";
-        String initialAccount = UsersAccessor.INSTANCE.selectUserId(initialAccountUser, initialAccountPassword);
+        String initialAccount = UsersAccessorImpl.INSTANCE.selectUserId(initialAccountUser, initialAccountPassword);
 
         if (initialAccount == null || "".equals(initialAccount)) {
-            UsersAccessor.INSTANCE.insertUser(new UserDto(initialAccountUser, initialAccountPassword));
+            UsersAccessorImpl.INSTANCE.insertUser(new UserDto(initialAccountUser, initialAccountPassword));
         }
 
-        String postCount = PostAccessor.INSTANCE.selectPostCount();
+        String postCount = PostAccessorImpl.INSTANCE.selectPostCount();
         if (postCount == null || "".equals(postCount) || "0".equals(postCount)) {
 
             List<PostDto> postMap = new LinkedList<PostDto>() {
@@ -48,7 +48,7 @@ public class InitialContextListener implements ServletContextListener {
             };
 
             for (PostDto post : postMap) {
-                PostAccessor.INSTANCE.insertUser(post);
+                PostAccessorImpl.INSTANCE.insertUser(post);
             }
         }
 

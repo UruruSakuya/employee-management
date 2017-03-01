@@ -6,9 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import jp.ne.naokiur.em.dto.UserDto;
+import jp.ne.naokiur.em.dto.PostDto;
 
-public enum UsersAccessor implements DBAccessable {
+public enum PostAccessorImpl implements DBAccessable {
     INSTANCE;
 
     @Override
@@ -20,37 +20,35 @@ public enum UsersAccessor implements DBAccessable {
         }
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
+            // Create EM_EMPLOYEES table
+            String createPostSql = "CREATE TABLE IF NOT EXISTS EM_POST (" + "post_id CHAR(2) PRIMARY KEY NOT NULL,"
+                    + "post_name VARCHAR(255))";
 
-            // Create EM_USERS table
-            String createEmUsersSql = "CREATE TABLE IF NOT EXISTS EM_USERS ("
-                    + "user_id VARCHAR(16) PRIMARY KEY NOT NULL," + "password TEXT NOT NULL)";
-
-            try (PreparedStatement stmt = conn.prepareStatement(createEmUsersSql)) {
-
+            try (PreparedStatement stmt = conn.prepareStatement(createPostSql)) {
                 stmt.executeUpdate();
 
-            } catch (SQLException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException e1) {
+            // TODO 自動生成された catch ブロック
+            e1.printStackTrace();
         }
     }
 
-    public void insertUser(UserDto user) {
+    public void insertUser(PostDto post) {
         try {
-            Class.forName(DRIVER);
+            Class.forName(ENV.getString("db.driver"));
         } catch (ClassNotFoundException e1) {
             e1.printStackTrace();
         }
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
-            String insertEmployeeSql = "INSERT INTO EM_USERS VALUES (?, ?)";
+        try (Connection conn = DriverManager.getConnection(ENV.getString("db.url"), ENV.getString("db.user"), ENV.getString("db.password"))) {
+            String insertEmployeeSql = "INSERT INTO EM_POST VALUES (?, ?)";
 
             try (PreparedStatement stmt = conn.prepareStatement(insertEmployeeSql)) {
-                stmt.setString(1, user.getUserId());
-                stmt.setString(2, user.getPassword());
+                stmt.setString(1, post.getPostId());
+                stmt.setString(2, post.getPostName());
 
                 stmt.execute();
             }
@@ -60,19 +58,17 @@ public enum UsersAccessor implements DBAccessable {
         }
     }
 
-    public String selectUserId(String userId, String password) {
+    public String selectPostCount() {
         try {
             Class.forName(ENV.getString("db.driver"));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
-            String createEmUsersSql = "SELECT user_id FROM EM_USERS WHERE user_id = ? AND password = ?";
+        try (Connection conn = DriverManager.getConnection(ENV.getString("db.url"), ENV.getString("db.user"), ENV.getString("db.password")); ) {
+            String createEmUsersSql = "SELECT COUNT(*) FROM EM_POST";
 
             try (PreparedStatement stmt  =conn.prepareStatement(createEmUsersSql);) {
-                stmt.setString(1, userId);
-                stmt.setString(2, password);
 
                 ResultSet result = stmt.executeQuery();
 

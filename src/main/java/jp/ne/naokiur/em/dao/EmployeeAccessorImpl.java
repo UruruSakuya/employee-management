@@ -31,10 +31,10 @@ public enum EmployeeAccessorImpl implements DBAccessable {
 
                 String initialAccountUser = "admin";
                 String initialAccountPassword = "admin";
-                String initialAccount = UsersAccessor.INSTANCE.selectUserId(initialAccountUser, initialAccountPassword);
+                String initialAccount = UsersAccessorImpl.INSTANCE.selectUserId(initialAccountUser, initialAccountPassword);
 
                 if (initialAccount == null || "".equals(initialAccount)) {
-                   UsersAccessor.INSTANCE.insertUser(new UserDto(initialAccountUser, initialAccountPassword));
+                   UsersAccessorImpl.INSTANCE.insertUser(new UserDto(initialAccountUser, initialAccountPassword));
                 }
 
             } catch (SQLException e) {
