@@ -17,7 +17,7 @@ import jp.ne.naokiur.em.code.Site;
 import jp.ne.naokiur.em.dto.EmployeeDto;
 import jp.ne.naokiur.em.model.RegisterModel;
 
-@WebServlet(name = "RegisterCompleteController", urlPatterns = { "/user/register/complete" })
+@WebServlet(name = "RegisterCompleteController", urlPatterns = {"/user/register/complete"})
 public class RegisterCompleteController extends HttpServlet {
 
     /** Default serialize ID */
@@ -34,7 +34,7 @@ public class RegisterCompleteController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession session =  req.getSession();
+        HttpSession session = req.getSession();
 
         EmployeeDto employee = new EmployeeDto();
         employee.setUserId((String) session.getAttribute("user_id"));
@@ -43,8 +43,8 @@ public class RegisterCompleteController extends HttpServlet {
         employee.setPostCode((String) session.getAttribute("post_code"));
         employee.setAge(Integer.valueOf((String) session.getAttribute("age")));
         try {
-            employee.setEntryDate(new Timestamp(
-                    new SimpleDateFormat("yyyy-mm-dd").parse(String.valueOf(session.getAttribute("entry_date"))).getTime()));
+            employee.setEntryDate(new Timestamp(new SimpleDateFormat("yyyy-mm-dd")
+                    .parse(String.valueOf(session.getAttribute("entry_date"))).getTime()));
         } catch (ParseException e) {
             // TODO 自動生成された catch ブロック
             e.printStackTrace();

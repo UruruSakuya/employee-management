@@ -10,6 +10,5 @@ public interface DBAccessable {
     public final static String PASSWORD = ENV.getString("db.password");
     public final static String DRIVER = ENV.getString("db.driver");
 
-
     public void createTable();
 }

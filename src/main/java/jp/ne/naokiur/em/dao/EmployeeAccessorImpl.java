@@ -21,9 +21,9 @@ public enum EmployeeAccessorImpl implements DBAccessable {
             e1.printStackTrace();
         }
 
-        String sql = "CREATE TABLE IF NOT EXISTS EM_EMPLOYEES ("
-                + "user_id VARCHAR(16) PRIMARY KEY NOT NULL," + "first_name VARCHAR(16)," + "last_name VARCHAR(16),"
-                + "post_code CHAR(2)," + "age INTEGER," + "enter_date TIMESTAMP)";
+        String sql = "CREATE TABLE IF NOT EXISTS EM_EMPLOYEES (" + "user_id VARCHAR(16) PRIMARY KEY NOT NULL,"
+                + "first_name VARCHAR(16)," + "last_name VARCHAR(16)," + "post_code CHAR(2)," + "age INTEGER,"
+                + "enter_date TIMESTAMP)";
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -31,10 +31,11 @@ public enum EmployeeAccessorImpl implements DBAccessable {
 
                 String initialAccountUser = "admin";
                 String initialAccountPassword = "admin";
-                String initialAccount = UsersAccessorImpl.INSTANCE.selectUserId(initialAccountUser, initialAccountPassword);
+                String initialAccount = UsersAccessorImpl.INSTANCE.selectUserId(initialAccountUser,
+                        initialAccountPassword);
 
                 if (initialAccount == null || "".equals(initialAccount)) {
-                   UsersAccessorImpl.INSTANCE.insertUser(new UserDto(initialAccountUser, initialAccountPassword));
+                    UsersAccessorImpl.INSTANCE.insertUser(new UserDto(initialAccountUser, initialAccountPassword));
                 }
 
             } catch (SQLException e) {
@@ -53,7 +54,8 @@ public enum EmployeeAccessorImpl implements DBAccessable {
             e1.printStackTrace();
         }
 
-        try (Connection conn = DriverManager.getConnection(ENV.getString("db.url"), ENV.getString("db.user"), ENV.getString("db.password"))) {
+        try (Connection conn = DriverManager.getConnection(ENV.getString("db.url"), ENV.getString("db.user"),
+                ENV.getString("db.password"))) {
             String insertEmployeeSql = "INSERT INTO EM_EMPLOYEES VALUES (?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement stmt = conn.prepareStatement(insertEmployeeSql)) {

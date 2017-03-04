@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.Site;
 
-@WebServlet(name = "RegisterConfirmController", urlPatterns = { "/user/register/confirm" })
+@WebServlet(name = "RegisterConfirmController", urlPatterns = {"/user/register/confirm"})
 public class RegisterConfirmController extends HttpServlet {
 
     /** Default serialize ID */
@@ -27,7 +27,7 @@ public class RegisterConfirmController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        HttpSession session =  req.getSession();
+        HttpSession session = req.getSession();
         session.setAttribute("user_id", req.getParameter("user_id"));
         session.setAttribute("first_name", req.getParameter("first_name"));
         session.setAttribute("last_name", req.getParameter("last_name"));

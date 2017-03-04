@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.Site;
 
-@WebServlet(name = "RegisterInitController", urlPatterns = { "/user/register/init" })
+@WebServlet(name = "RegisterInitController", urlPatterns = {"/user/register/init"})
 public class RegisterInitController extends HttpServlet {
 
     /** Default serialize ID */

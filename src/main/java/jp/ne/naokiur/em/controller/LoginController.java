@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import jp.ne.naokiur.em.code.Site;
 import jp.ne.naokiur.em.controller.model.LoginModel;
 
-@WebServlet(name = "LoginController", urlPatterns = { "/login" })
+@WebServlet(name = "LoginController", urlPatterns = {"/login"})
 public class LoginController extends HttpServlet {
 
     /** Default serialize ID */
@@ -40,7 +40,6 @@ public class LoginController extends HttpServlet {
 
         String userId = req.getParameter("userId");
         String password = req.getParameter("password");
-
 
         if (new LoginModel().isMatchUser(userId, password)) {
             session.setAttribute("authenticated-user", userId);

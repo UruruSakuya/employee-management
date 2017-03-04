@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.Site;
 
-@WebServlet(name = "SearchController", urlPatterns = { "/user/search/*" })
+@WebServlet(name = "SearchController", urlPatterns = {"/user/search/*"})
 public class SearchController extends HttpServlet {
 
     /** Default serialize ID */
