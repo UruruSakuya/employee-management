@@ -68,9 +68,9 @@ public enum UsersAccessorImpl implements DBAccessable {
         }
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
-            String createEmUsersSql = "SELECT user_id FROM EM_USERS WHERE user_id = ? AND password = ?";
+            String selectEmUsersSql = "SELECT user_id FROM EM_USERS WHERE user_id = ? AND password = ?";
 
-            try (PreparedStatement stmt = conn.prepareStatement(createEmUsersSql);) {
+            try (PreparedStatement stmt = conn.prepareStatement(selectEmUsersSql);) {
                 stmt.setString(1, userId);
                 stmt.setString(2, password);
 
