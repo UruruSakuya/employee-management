@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.Site;
+import jp.ne.naokiur.em.dao.PostAccessorImpl;
 
 @WebServlet(name = "RegisterInitController", urlPatterns = {"/user/register/init"})
 public class RegisterInitController extends HttpServlet {
@@ -30,6 +31,8 @@ public class RegisterInitController extends HttpServlet {
 
         HttpSession session = req.getSession();
         session.setAttribute("title", Site.REGISTER_INIT.getTitle());
+        session.setAttribute("postList", PostAccessorImpl.INSTANCE.selectAllPost());
+
         context.getRequestDispatcher(Site.REGISTER_INIT.getJspPath()).forward(req, res);
     }
 }

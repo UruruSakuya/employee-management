@@ -1,20 +1,20 @@
 package jp.ne.naokiur.em.dto;
 
 public class PostDto {
-    private String postId;
+    private String postCode;
     private String postName;
 
-    public PostDto(String postId, String postName) {
-        this.postId = postId;
+    public PostDto(String postCode, String postName) {
+        this.postCode = postCode;
         this.postName = postName;
     }
 
-    public String getPostId() {
-        return postId;
+    public String getPostCode() {
+        return postCode;
     }
 
-    public void setPostId(String postId) {
-        this.postId = postId;
+    public void setPostCode(String postId) {
+        this.postCode = postId;
     }
 
     public String getPostName() {

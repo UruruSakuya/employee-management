@@ -13,7 +13,7 @@
                 <span id="last_name"><%=request.getParameter("last_name")%></span>
             </div>
             <div class="register-item">
-                <label for="post_code">部門</label><span id="post_code"><%=session.getAttribute("post_code")%></span>
+                <label for="post_code">部門</label><span id="post_name"><%=session.getAttribute("post_name")%></span>
             </div>
             <div class="register-item">
                 <label for="age">年齢</label><span id="age"><%=session.getAttribute("age")%></span>

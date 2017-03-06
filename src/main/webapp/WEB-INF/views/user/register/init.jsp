@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.util.*"%>
+<%@page import="jp.ne.naokiur.em.dto.PostDto"%>
 <jsp:include page="/WEB-INF/views/layouts/header.jsp"></jsp:include>
 <div id="contents">
     <h2>社員登録</h2>
@@ -15,8 +17,16 @@
                     type="text" id="last_name" name="last_name" />
             </div>
             <div class="register-item">
-                <label for="post_code">部門</label> <select id="post_code"
-                    name="post_code">
+                <label for="post_code">部門</label> <select id="post_code" name="post_code">
+                <%
+                    List<PostDto> postList = (List<PostDto>) session.getAttribute("postList");
+                    for (PostDto dto : postList) {
+                        request.setAttribute("post", dto);
+                %>
+                  <option value="${requestScope.post.postCode}">${requestScope.post.postName}</option>
+                <%
+                    }
+                %>
                 </select>
             </div>
             <div class="register-item">
