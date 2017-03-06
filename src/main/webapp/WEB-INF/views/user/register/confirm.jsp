@@ -19,8 +19,8 @@
                 <label for="age">年齢</label><span id="age"><%=session.getAttribute("age")%></span>
             </div>
             <div class="register-item">
-                <label for="entry_date">入社年月日</label> <span
-                    id="entry_date"><%=session.getAttribute("entry_date")%></span>
+                <label for="enter_date">入社年月日</label> <span
+                    id="enter_date"><%=session.getAttribute("enter_date")%></span>
             </div>
             <input type="submit" value="登録" />
         </div>

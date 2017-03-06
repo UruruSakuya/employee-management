@@ -43,8 +43,8 @@ public class RegisterCompleteController extends HttpServlet {
         employee.setPostCode((String) session.getAttribute("post_code"));
         employee.setAge(Integer.valueOf((String) session.getAttribute("age")));
         try {
-            employee.setEntryDate(new Timestamp(new SimpleDateFormat("yyyy-mm-dd")
-                    .parse(String.valueOf(session.getAttribute("entry_date"))).getTime()));
+            employee.setEnterDate(new Timestamp(new SimpleDateFormat("yyyy-mm-dd")
+                    .parse(String.valueOf(session.getAttribute("enter_date"))).getTime()));
         } catch (ParseException e) {
             // TODO 自動生成された catch ブロック
             e.printStackTrace();

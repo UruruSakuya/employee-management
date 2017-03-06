@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jp.ne.naokiur.em.dto.PostDto;
+import jp.ne.naokiur.em.exception.SystemException;
 
 public enum PostAccessorImpl implements DBAccessable {
     INSTANCE;
@@ -18,7 +19,7 @@ public enum PostAccessorImpl implements DBAccessable {
         try {
             Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new SystemException(e);
         }
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
@@ -30,19 +31,18 @@ public enum PostAccessorImpl implements DBAccessable {
                 stmt.executeUpdate();
 
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new SystemException(e);
             }
-        } catch (SQLException e1) {
-            // TODO 自動生成された catch ブロック
-            e1.printStackTrace();
+        } catch (SQLException e) {
+            throw new SystemException(e);
         }
     }
 
     public void insertUser(PostDto post) {
         try {
             Class.forName(ENV.getString("db.driver"));
-        } catch (ClassNotFoundException e1) {
-            e1.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new SystemException(e);
         }
 
         try (Connection conn = DriverManager.getConnection(ENV.getString("db.url"), ENV.getString("db.user"), ENV.getString("db.password"))) {
@@ -56,7 +56,7 @@ public enum PostAccessorImpl implements DBAccessable {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SystemException(e);
         }
     }
 
@@ -64,11 +64,11 @@ public enum PostAccessorImpl implements DBAccessable {
         try {
             Class.forName(ENV.getString("db.driver"));
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new SystemException(e);
         }
 
         try (Connection conn = DriverManager.getConnection(ENV.getString("db.url"), ENV.getString("db.user"), ENV.getString("db.password")); ) {
-            String createEmUsersSql = "SELECT post_name FROM EM_POST WHERE post_id = ?";
+            String createEmUsersSql = "SELECT post_name FROM EM_POST WHERE post_code = ?";
 
             try (PreparedStatement stmt  =conn.prepareStatement(createEmUsersSql);) {
                 stmt.setString(1, code);
@@ -82,7 +82,7 @@ public enum PostAccessorImpl implements DBAccessable {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SystemException(e);
         }
 
         return "";
@@ -112,7 +112,7 @@ public enum PostAccessorImpl implements DBAccessable {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SystemException(e);
         }
 
         return resultList;
@@ -138,7 +138,7 @@ public enum PostAccessorImpl implements DBAccessable {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SystemException(e);
         }
 
         return "";

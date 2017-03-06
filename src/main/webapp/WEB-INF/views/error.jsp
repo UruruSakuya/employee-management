@@ -2,8 +2,7 @@
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/layouts/header.jsp"></jsp:include>
 <div id="contents">
-    <h2>社員登録完了</h2>
-    <p>登録完了しました。</p>
-    <a href="${pageContext.request.contextPath}/user/menu">メニューに戻る</a>
+    <h2>システムエラーが発生しました。</h2>
 </div>
+
 <jsp:include page="/WEB-INF/views/layouts/footer.jsp"></jsp:include>

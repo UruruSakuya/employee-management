@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import jp.ne.naokiur.em.dto.UserDto;
+import jp.ne.naokiur.em.exception.SystemException;
 
 public enum UsersAccessorImpl implements DBAccessable {
     INSTANCE;
@@ -16,7 +17,7 @@ public enum UsersAccessorImpl implements DBAccessable {
         try {
             Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new SystemException(e);
         }
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
@@ -30,11 +31,11 @@ public enum UsersAccessorImpl implements DBAccessable {
                 stmt.executeUpdate();
 
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new SystemException(e);
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SystemException(e);
         }
     }
 
@@ -56,7 +57,7 @@ public enum UsersAccessorImpl implements DBAccessable {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SystemException(e);
         }
     }
 
@@ -64,7 +65,7 @@ public enum UsersAccessorImpl implements DBAccessable {
         try {
             Class.forName(ENV.getString("db.driver"));
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new SystemException(e);
         }
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD)) {
@@ -82,7 +83,7 @@ public enum UsersAccessorImpl implements DBAccessable {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SystemException(e);
         }
 
         return "";
