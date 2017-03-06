@@ -1,4 +1,4 @@
-package jp.ne.naokiur.em.controller.model;
+package jp.ne.naokiur.em.model;
 
 import jp.ne.naokiur.em.dao.UsersAccessorImpl;
 
