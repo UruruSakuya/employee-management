@@ -35,7 +35,7 @@ public class RegisterConfirmController extends HttpServlet {
         session.setAttribute("post_code", req.getParameter("post_code"));
         session.setAttribute("post_name", PostAccessorImpl.INSTANCE.selectPostNameByCode(req.getParameter("post_code")));
         session.setAttribute("age", req.getParameter("age"));
-        session.setAttribute("entry_date", req.getParameter("entry_date"));
+        session.setAttribute("enter_date", req.getParameter("enter_date"));
 
         context.getRequestDispatcher(Site.REGISTER_CONFIRM.getJspPath()).forward(req, res);
     }

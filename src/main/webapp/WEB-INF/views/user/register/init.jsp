@@ -34,8 +34,8 @@
                     name="age" min="0" />
             </div>
             <div class="register-item">
-                <label for="entry_date">入社年月日</label><input type="date"
-                    id="entry_date" name="entry_date" />
+                <label for="enter_date">入社年月日</label><input type="date"
+                    id="enter_date" name="enter_date" />
             </div>
             <input type="submit" value="登録確認" />
         </div>

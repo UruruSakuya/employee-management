@@ -2,13 +2,15 @@ package jp.ne.naokiur.em.dto;
 
 import java.sql.Timestamp;
 
-public class EmployeeDto {
+public class SearchCondtion {
     private String userId;
     private String firstName;
     private String lastName;
     private String postCode;
-    private int age;
-    private Timestamp enterDate;
+    private Integer fromAge;
+    private Integer toAge;
+    private Timestamp fromEnterDate;
+    private Timestamp toEnterDate;
 
     public String getUserId() {
         return userId;
@@ -42,19 +44,36 @@ public class EmployeeDto {
         this.postCode = postCode;
     }
 
-    public int getAge() {
-        return age;
+    public Integer getFromAge() {
+        return fromAge;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setFromAge(Integer fromAge) {
+        this.fromAge = fromAge;
     }
 
-    public Timestamp getEnterDate() {
-        return enterDate;
+    public Integer getToAge() {
+        return toAge;
     }
 
-    public void setEnterDate(Timestamp enterDate) {
-        this.enterDate = enterDate;
+    public void setToAge(Integer toAge) {
+        this.toAge = toAge;
     }
+
+    public Timestamp getFromEnterDate() {
+        return fromEnterDate;
+    }
+
+    public void setFromEnterDate(Timestamp fromEnterDate) {
+        this.fromEnterDate = fromEnterDate;
+    }
+
+    public Timestamp getToEnterDate() {
+        return toEnterDate;
+    }
+
+    public void setToEnterDate(Timestamp toEnterDate) {
+        this.toEnterDate = toEnterDate;
+    }
+
 }

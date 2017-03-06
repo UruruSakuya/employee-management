@@ -68,7 +68,7 @@ public enum PostAccessorImpl implements DBAccessable {
         }
 
         try (Connection conn = DriverManager.getConnection(ENV.getString("db.url"), ENV.getString("db.user"), ENV.getString("db.password")); ) {
-            String createEmUsersSql = "SELECT post_name FROM EM_POST WHERE post_id = ?";
+            String createEmUsersSql = "SELECT post_name FROM EM_POST WHERE post_code = ?";
 
             try (PreparedStatement stmt  =conn.prepareStatement(createEmUsersSql);) {
                 stmt.setString(1, code);
