@@ -1,41 +1,45 @@
 @CHARSET "UTF-8";
 
 html {
-	font-family: 'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo,
-		sans-serif;
-	background-color: #EFFAED;
+    font-family: 'Lucida Grande', 'Hiragino Kaku Gothic ProN', Meiryo,
+        sans-serif;
+    background-color: #EFFAED;
 }
 
 header {
-	font-size: 24px;
-	background-color: #81D674;
-	padding: 2%;
+    font-size: 24px;
+    background-color: #81D674;
+    padding: 2%;
 }
 
 footer {
-	margin-top: 2%;
-	padding: 2%;
-	text-align: center;
-	border-top: solid 1px black;
-	padding: 2%;
+    margin-top: 2%;
+    padding: 2%;
+    text-align: center;
+    border-top: solid 1px black;
+    padding: 2%;
 }
 
 input {
-	margin: 0.2%;
+    margin: 0.2%;
 }
 
 #contents {
-	margin-left: 5%;
+    margin-left: 5%;
 }
 
 .menu-content {
-	margin: 0.5% 0% 0.5% 5%;
+    margin: 0.5% 0% 0.5% 5%;
+}
+
+.message {
+    margin-left: 1%;
 }
 
 .register-items {
-	margin-left: 5%;
+    margin-left: 5%;
 }
 
-.register-item > label {
+.register-item>label {
     margin: 1% 1%;
 }

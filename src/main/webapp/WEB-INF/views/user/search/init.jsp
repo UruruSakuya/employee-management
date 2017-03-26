@@ -5,6 +5,7 @@
 <jsp:include page="/WEB-INF/views/layouts/header.jsp"></jsp:include>
 <div id="contents">
     <h2>社員検索</h2>
+    <jsp:include page="/WEB-INF/views/layouts/message.jsp"></jsp:include>
     <form method="post" action="./init">
         <div id="conditions">
             <table>
