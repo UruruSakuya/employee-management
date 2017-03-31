@@ -3,15 +3,20 @@ package jp.ne.naokiur.em.code;
 import java.util.ResourceBundle;
 
 public enum Messages {
-    ERROR001(ResourceBundle.getBundle("messages").getString("ERROR001"));
+    LOGIN_MANDATORY_VALUES("error"),
+    LOGIN_UNMATCH("error");
 
-    private String label;
+    private String level;
 
-    private Messages(String label) {
-        this.label = label;
+    private Messages(String level) {
+        this.level = level;
     }
 
-    public String getLabel() {
-        return label;
+    public String getLevel() {
+        return level;
+    }
+
+    public String load() {
+        return ResourceBundle.getBundle("messages").getString(this.toString());
     }
 }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.AttributeKey;
+import jp.ne.naokiur.em.code.Messages;
 import jp.ne.naokiur.em.code.Site;
 import jp.ne.naokiur.em.exception.ModelValidatorException;
 import jp.ne.naokiur.em.model.LoginModel;
@@ -50,12 +51,12 @@ public class LoginController extends HttpServlet {
             session.setAttribute("authenticated-user", model.authenticate(userId, password));
 
         } catch (ModelValidatorException e) {
-            req.setAttribute(AttributeKey.MESSAGE_LIST.getKey(), new ArrayList<String>() {
+            req.setAttribute(AttributeKey.MESSAGE_LIST.getKey(), new ArrayList<Messages>() {
                 /** Default serialize id */
                 private static final long serialVersionUID = 1L;
 
                 {
-                    add(e.getMessage());
+                    add(e.getMessages());
                 }
             });
 

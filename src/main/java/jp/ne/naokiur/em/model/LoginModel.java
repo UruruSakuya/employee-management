@@ -7,7 +7,7 @@ import jp.ne.naokiur.em.exception.ModelValidatorException;
 public class LoginModel {
     public String authenticate(String id, String password) throws ModelValidatorException {
         if (id == null || id.equals("") || password == null || password.equals("")) {
-            throw new ModelValidatorException(Messages.ERROR001.getLabel());
+            throw new ModelValidatorException(Messages.LOGIN_MANDATORY_VALUES);
         }
 
         String matchedUserId = UsersAccessorImpl.INSTANCE.selectUserId(id, password);
@@ -16,7 +16,7 @@ public class LoginModel {
             return matchedUserId;
 
         } else {
-            return "";
+            throw new ModelValidatorException(Messages.LOGIN_UNMATCH);
         }
     }
 }
