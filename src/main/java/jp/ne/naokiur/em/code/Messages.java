@@ -4,7 +4,8 @@ import java.util.ResourceBundle;
 
 public enum Messages {
     LOGIN_MANDATORY_VALUES("error"),
-    LOGIN_UNMATCH("error");
+    LOGIN_UNMATCH("error"),
+    COMMON_MANDATORY_VALUES("error");
 
     private String level;
 

@@ -37,20 +37,18 @@ public class RegisterCompleteController extends HttpServlet {
         HttpSession session = req.getSession();
 
         EmployeeDto employee = new EmployeeDto();
-        employee.setUserId((String) session.getAttribute("user_id"));
-        employee.setFirstName((String) session.getAttribute("first_name"));
-        employee.setLastName((String) session.getAttribute("last_name"));
-        employee.setPostCode((String) session.getAttribute("post_code"));
-        employee.setAge(Integer.valueOf((String) session.getAttribute("age")));
         try {
+            employee.setUserId((String) session.getAttribute("user_id"));
+            employee.setFirstName((String) session.getAttribute("first_name"));
+            employee.setLastName((String) session.getAttribute("last_name"));
+            employee.setPostCode((String) session.getAttribute("post_code"));
+            employee.setAge(Integer.valueOf((String) session.getAttribute("age")));
             employee.setEnterDate(new Timestamp(new SimpleDateFormat("yyyy-mm-dd")
                     .parse(String.valueOf(session.getAttribute("enter_date"))).getTime()));
+            registerModel.register(employee);
         } catch (ParseException e) {
-            // TODO 自動生成された catch ブロック
             e.printStackTrace();
         }
-
-        registerModel.register(employee);
 
         context.getRequestDispatcher(Site.REGISTER_COMPLETE.getJspPath()).forward(req, res);
     }
