@@ -1,9 +1,6 @@
 package jp.ne.naokiur.em.controller.register;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.Site;
-import jp.ne.naokiur.em.dto.EmployeeDto;
-import jp.ne.naokiur.em.model.RegisterModel;
+import jp.ne.naokiur.em.exception.ModelValidatorException;
+import jp.ne.naokiur.em.model.EmployeeModel;
 
 @WebServlet(name = "RegisterCompleteController", urlPatterns = {"/user/register/complete"})
 public class RegisterCompleteController extends HttpServlet {
@@ -26,8 +23,6 @@ public class RegisterCompleteController extends HttpServlet {
     /** ServletContext */
     private ServletContext context;
 
-    private final RegisterModel registerModel = new RegisterModel();
-
     public void init() {
         context = getServletContext();
     }
@@ -36,17 +31,15 @@ public class RegisterCompleteController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         HttpSession session = req.getSession();
 
-        EmployeeDto employee = new EmployeeDto();
         try {
-            employee.setUserId((String) session.getAttribute("user_id"));
-            employee.setFirstName((String) session.getAttribute("first_name"));
-            employee.setLastName((String) session.getAttribute("last_name"));
-            employee.setPostCode((String) session.getAttribute("post_code"));
-            employee.setAge(Integer.valueOf((String) session.getAttribute("age")));
-            employee.setEnterDate(new Timestamp(new SimpleDateFormat("yyyy-mm-dd")
-                    .parse(String.valueOf(session.getAttribute("enter_date"))).getTime()));
-            registerModel.register(employee);
-        } catch (ParseException e) {
+
+            EmployeeModel<Object> model = new EmployeeModel<>(session.getAttribute("user_id"),
+                    session.getAttribute("first_name"), session.getAttribute("last_name"), session.getAttribute("post_code"),
+                    session.getAttribute("age"), session.getAttribute("enter_date"));
+
+            model.register();
+
+        } catch (ModelValidatorException e) {
             e.printStackTrace();
         }
 

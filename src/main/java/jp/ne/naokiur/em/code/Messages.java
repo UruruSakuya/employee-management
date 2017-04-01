@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 public enum Messages {
     LOGIN_MANDATORY_VALUES("error"),
     LOGIN_UNMATCH("error"),
-    COMMON_MANDATORY_VALUES("error");
+    EMPLOYEE_MANDATORY_USER_ID("error");
 
     private String level;
 
