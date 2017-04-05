@@ -1,9 +1,11 @@
 package jp.ne.naokiur.em.exception;
 
-import jp.ne.naokiur.em.code.Messages;
+import java.util.List;
+
+import jp.ne.naokiur.em.common.Messages;
 
 public class ModelValidatorException extends Exception {
-    Messages messages;
+    List<Messages> messagesList;
 
     /** */
     private static final long serialVersionUID = 1L;
@@ -16,11 +18,11 @@ public class ModelValidatorException extends Exception {
         super(message);
     }
 
-    public ModelValidatorException(Messages message) {
-        this.messages = message;
+    public ModelValidatorException(List<Messages> messagesList) {
+        this.messagesList = messagesList;
     }
 
-    public Messages getMessages() {
-        return messages;
+    public List<Messages> getMessagesList() {
+        return messagesList;
     }
 }

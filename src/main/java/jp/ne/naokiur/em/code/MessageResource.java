@@ -2,14 +2,14 @@ package jp.ne.naokiur.em.code;
 
 import java.util.ResourceBundle;
 
-public enum Messages {
+public enum MessageResource {
     LOGIN_MANDATORY_VALUES("error"),
     LOGIN_UNMATCH("error"),
-    EMPLOYEE_MANDATORY_USER_ID("error");
+    COMMON_MANDATORY("error");
 
     private String level;
 
-    private Messages(String level) {
+    private MessageResource(String level) {
         this.level = level;
     }
 

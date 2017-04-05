@@ -1,7 +1,6 @@
 package jp.ne.naokiur.em.controller.register;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import jp.ne.naokiur.em.code.AttributeKey;
-import jp.ne.naokiur.em.code.Messages;
 import jp.ne.naokiur.em.code.Site;
 import jp.ne.naokiur.em.dao.PostAccessorImpl;
 import jp.ne.naokiur.em.exception.ModelValidatorException;
@@ -51,19 +49,13 @@ public class RegisterConfirmController extends HttpServlet {
             session.setAttribute("enter_date", model.getEnterDate());
 
         } catch (ModelValidatorException e) {
-            req.setAttribute(AttributeKey.MESSAGE_LIST.getKey(), new ArrayList<Messages>() {
-                /** Default serialize id */
-                private static final long serialVersionUID = 1L;
-
-                {
-                    add(e.getMessages());
-                }
-            });
+            req.setAttribute(AttributeKey.MESSAGE_LIST.getKey(), e.getMessagesList());
 
             context.getRequestDispatcher(Site.REGISTER_INIT.getJspPath()).forward(req, res);
 
             return;
         }
+
         context.getRequestDispatcher(Site.REGISTER_CONFIRM.getJspPath()).forward(req, res);
     }
 }

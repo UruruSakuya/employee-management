@@ -3,8 +3,11 @@ package jp.ne.naokiur.em.model;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
-import jp.ne.naokiur.em.code.Messages;
+import jp.ne.naokiur.em.code.MessageResource;
+import jp.ne.naokiur.em.common.Messages;
 import jp.ne.naokiur.em.dao.EmployeeAccessorImpl;
 import jp.ne.naokiur.em.dto.EmployeeDto;
 import jp.ne.naokiur.em.exception.ModelValidatorException;
@@ -23,15 +26,19 @@ public class EmployeeModel<T> {
         this.lastName = String.valueOf(lastName);
         this.postCode = String.valueOf(postCode);
 
+        List<Messages> messagesList = new ArrayList<>();
+
         try {
             this.age = Integer.valueOf(String.valueOf(age));
             this.enterDate = new Timestamp(new SimpleDateFormat("yyyy-mm-dd")
                     .parse(String.valueOf(enterDate)).getTime());
         } catch (NumberFormatException e) {
-            throw new ModelValidatorException(e);
+            messagesList.add(new Messages(MessageResource.COMMON_MANDATORY, new String[]{"年齢"}));
+            throw new ModelValidatorException(messagesList);
 
         } catch (ParseException e) {
-            throw new ModelValidatorException(e);
+            messagesList.add(new Messages(MessageResource.COMMON_MANDATORY, new String[]{"入社年月日"}));
+            throw new ModelValidatorException(messagesList);
         }
     }
 
@@ -72,12 +79,34 @@ public class EmployeeModel<T> {
     }
 
     public void validate() throws ModelValidatorException {
-        validateUserId();
+        List<Messages> messagesList = new ArrayList<>();
+
+        if (isExistText(this.userId)) {
+            messagesList.add(new Messages(MessageResource.COMMON_MANDATORY, new String[]{"ユーザID"}));
+        }
+
+        if (isExistText(this.firstName)) {
+            messagesList.add(new Messages(MessageResource.COMMON_MANDATORY, new String[]{"名字"}));
+        }
+
+        if (isExistText(this.lastName)) {
+            messagesList.add(new Messages(MessageResource.COMMON_MANDATORY, new String[]{"名前"}));
+        }
+
+        if (isExistText(this.postCode)) {
+            messagesList.add(new Messages(MessageResource.COMMON_MANDATORY, new String[]{"部門"}));
+        }
+
+        if (this.age == null) {
+            messagesList.add(new Messages(MessageResource.COMMON_MANDATORY, new String[]{"年齢"}));
+        }
+
+        if (!messagesList.isEmpty()) {
+            throw new ModelValidatorException(messagesList);
+        }
     }
 
-    private void validateUserId() throws ModelValidatorException {
-        if (this.userId == null || "".equals(this.userId)) {
-            throw new ModelValidatorException(Messages.EMPLOYEE_MANDATORY_USER_ID);
-        }
+    private boolean isExistText(String text) {
+        return text == null || "".equals(text);
     }
 }
