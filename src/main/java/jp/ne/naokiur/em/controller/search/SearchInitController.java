@@ -15,7 +15,7 @@ import jp.ne.naokiur.em.code.Site;
 import jp.ne.naokiur.em.dao.PostAccessorImpl;
 import jp.ne.naokiur.em.dto.EmployeeDto;
 import jp.ne.naokiur.em.dto.PostDto;
-import jp.ne.naokiur.em.model.SearchModel;
+import jp.ne.naokiur.em.model.EmployeeModel;
 
 @WebServlet(name = "SearchController", urlPatterns = {"/user/search/*"})
 public class SearchInitController extends HttpServlet {
@@ -49,7 +49,7 @@ public class SearchInitController extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        List<EmployeeDto> resultList = new SearchModel().search(req.getParameter("user_id"),
+        List<EmployeeDto> resultList = new EmployeeModel().search(req.getParameter("user_id"),
                 req.getParameter("fitst_name"), req.getParameter("last_name"), req.getParameter("post_code"),
                 req.getParameter("from_age"), req.getParameter("to_age"), req.getParameter("from_enter_date"),
                 req.getParameter("to_enter_date"));
