@@ -12,7 +12,7 @@ import jp.ne.naokiur.em.dao.EmployeeAccessorImpl;
 import jp.ne.naokiur.em.dto.EmployeeDto;
 import jp.ne.naokiur.em.exception.ModelValidatorException;
 
-public class EmployeeModel<T> {
+public class EmployeeModel {
     private final String userId;
     private final String firstName;
     private final String lastName;
@@ -20,7 +20,7 @@ public class EmployeeModel<T> {
     private final Integer age;
     private final Timestamp enterDate;
 
-    public EmployeeModel(T userId, T firstName, T lastName, T postCode, T age, T enterDate) throws ModelValidatorException {
+    public <T> EmployeeModel(T userId, T firstName, T lastName, T postCode, T age, T enterDate) throws ModelValidatorException {
         this.userId = String.valueOf(userId);
         this.firstName = String.valueOf(firstName);
         this.lastName = String.valueOf(lastName);

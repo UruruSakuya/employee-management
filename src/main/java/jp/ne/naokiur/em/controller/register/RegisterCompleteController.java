@@ -33,7 +33,7 @@ public class RegisterCompleteController extends HttpServlet {
 
         try {
 
-            EmployeeModel<Object> model = new EmployeeModel<>(session.getAttribute("user_id"),
+            EmployeeModel model = new EmployeeModel(session.getAttribute("user_id"),
                     session.getAttribute("first_name"), session.getAttribute("last_name"), session.getAttribute("post_code"),
                     session.getAttribute("age"), session.getAttribute("enter_date"));
 

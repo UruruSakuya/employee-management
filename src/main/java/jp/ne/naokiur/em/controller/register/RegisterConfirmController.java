@@ -34,7 +34,7 @@ public class RegisterConfirmController extends HttpServlet {
         HttpSession session = req.getSession();
 
         try {
-            EmployeeModel<Object> model = new EmployeeModel<>(req.getParameter("user_id"),
+            EmployeeModel model = new EmployeeModel(req.getParameter("user_id"),
                     req.getParameter("first_name"), req.getParameter("last_name"), req.getParameter("post_code"),
                     req.getParameter("age"), req.getParameter("enter_date"));
 
