@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class EmployeeDto {
     private String userId;
+    private String password;
     private String firstName;
     private String lastName;
     private String postCode;
@@ -16,6 +17,14 @@ public class EmployeeDto {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {

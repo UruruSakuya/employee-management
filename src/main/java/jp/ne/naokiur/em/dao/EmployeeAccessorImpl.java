@@ -12,7 +12,6 @@ import java.util.ResourceBundle;
 import jp.ne.naokiur.em.dto.DisplayEmployeeDto;
 import jp.ne.naokiur.em.dto.EmployeeDto;
 import jp.ne.naokiur.em.dto.SearchCondtion;
-import jp.ne.naokiur.em.dto.UserDto;
 import jp.ne.naokiur.em.exception.SystemException;
 
 public enum EmployeeAccessorImpl implements DBAccessable {
@@ -27,7 +26,9 @@ public enum EmployeeAccessorImpl implements DBAccessable {
             throw new SystemException(e);
         }
 
-        String sql = "CREATE TABLE IF NOT EXISTS EM_EMPLOYEES (" + "user_id VARCHAR(16) PRIMARY KEY NOT NULL,"
+        String sql = "CREATE TABLE IF NOT EXISTS EM_EMPLOYEES ("
+                + "user_id VARCHAR(16) PRIMARY KEY NOT NULL,"
+                + "password VARCHAR(64) NOT NULL,"
                 + "first_name VARCHAR(16)," + "last_name VARCHAR(16)," + "post_code CHAR(2)," + "age INTEGER,"
                 + "enter_date TIMESTAMP)";
 
@@ -35,14 +36,6 @@ public enum EmployeeAccessorImpl implements DBAccessable {
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.executeUpdate();
 
-                String initialAccountUser = "admin";
-                String initialAccountPassword = "admin";
-                String initialAccount = UsersAccessorImpl.INSTANCE.selectUserId(initialAccountUser,
-                        initialAccountPassword);
-
-                if (initialAccount == null || "".equals(initialAccount)) {
-                    UsersAccessorImpl.INSTANCE.insertUser(new UserDto(initialAccountUser, initialAccountPassword));
-                }
 
             } catch (SQLException e) {
                 throw new SystemException(e);
@@ -62,15 +55,16 @@ public enum EmployeeAccessorImpl implements DBAccessable {
 
         try (Connection conn = DriverManager.getConnection(ENV.getString("db.url"), ENV.getString("db.user"),
                 ENV.getString("db.password"))) {
-            String insertEmployeeSql = "INSERT INTO EM_EMPLOYEES VALUES (?, ?, ?, ?, ?, ?)";
+            String insertEmployeeSql = "INSERT INTO EM_EMPLOYEES VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement stmt = conn.prepareStatement(insertEmployeeSql)) {
                 stmt.setString(1, employee.getUserId());
-                stmt.setString(2, employee.getFirstName());
-                stmt.setString(3, employee.getLastName());
-                stmt.setString(4, employee.getPostCode());
-                stmt.setInt(5, employee.getAge());
-                stmt.setTimestamp(6, employee.getEnterDate());
+                stmt.setString(2, employee.getPassword());
+                stmt.setString(3, employee.getFirstName());
+                stmt.setString(4, employee.getLastName());
+                stmt.setString(5, employee.getPostCode());
+                stmt.setInt(6, employee.getAge());
+                stmt.setTimestamp(7, employee.getEnterDate());
 
                 stmt.execute();
             }
@@ -78,6 +72,58 @@ public enum EmployeeAccessorImpl implements DBAccessable {
         } catch (SQLException e) {
             throw new SystemException(e);
         }
+    }
+
+    public String selectUserIdByUserIdAndPassword(String userId, String password) {
+        try {
+            Class.forName(DRIVER);
+        } catch (ClassNotFoundException e) {
+            throw new SystemException(e);
+        }
+
+        try (Connection conn = DriverManager.getConnection(ENV.getString("db.url"), ENV.getString("db.user"),
+                ENV.getString("db.password"))) {
+            String selectEmployeeSql = "SELECT user_id FROM EM_EMPLOYEES "
+                    + "WHERE user_id = '" + userId + "' AND "
+                    + "password = '" + password + "';";
+
+            try (PreparedStatement stmt = conn.prepareStatement(selectEmployeeSql)) {
+                ResultSet resultSet = stmt.executeQuery();
+
+                if (resultSet.next()) {
+                    return resultSet.getString(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new SystemException(e);
+        }
+
+        return "";
+    }
+
+    public String selectCountByUserId(String userId) {
+        try {
+            Class.forName(DRIVER);
+        } catch (ClassNotFoundException e) {
+            throw new SystemException(e);
+        }
+
+        try (Connection conn = DriverManager.getConnection(ENV.getString("db.url"), ENV.getString("db.user"),
+                ENV.getString("db.password"))) {
+            String selectEmployeeSql = "SELECT COUNT(user_id) FROM EM_EMPLOYEES WHERE user_id = '" + userId + "'";
+
+            try (PreparedStatement stmt = conn.prepareStatement(selectEmployeeSql)) {
+                ResultSet resultSet = stmt.executeQuery();
+
+                if (resultSet.next()) {
+                    return resultSet.getString(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new SystemException(e);
+        }
+
+        return "";
     }
 
     public List<EmployeeDto> selectByCondition(SearchCondtion condtion) {

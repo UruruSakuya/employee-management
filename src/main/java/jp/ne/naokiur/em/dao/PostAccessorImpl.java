@@ -118,7 +118,7 @@ public enum PostAccessorImpl implements DBAccessable {
         return resultList;
     }
 
-    public String selectPostCount() {
+    public String selectCount() {
         try {
             Class.forName(ENV.getString("db.driver"));
         } catch (ClassNotFoundException e) {

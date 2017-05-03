@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import jp.ne.naokiur.em.code.MessageResource;
 import jp.ne.naokiur.em.common.Messages;
-import jp.ne.naokiur.em.dao.UsersAccessorImpl;
+import jp.ne.naokiur.em.dao.EmployeeAccessorImpl;
 import jp.ne.naokiur.em.exception.ModelValidatorException;
 
 public class LoginModel {
@@ -21,7 +21,7 @@ public class LoginModel {
             });
         }
 
-        String matchedUserId = UsersAccessorImpl.INSTANCE.selectUserId(id, password);
+        String matchedUserId = EmployeeAccessorImpl.INSTANCE.selectUserIdByUserIdAndPassword(id, password);
 
         if ((matchedUserId != null && !matchedUserId.equals(""))) {
             return matchedUserId;

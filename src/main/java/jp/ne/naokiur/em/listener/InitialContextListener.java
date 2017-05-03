@@ -1,5 +1,6 @@
 package jp.ne.naokiur.em.listener;
 
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,9 +9,8 @@ import javax.servlet.ServletContextListener;
 
 import jp.ne.naokiur.em.dao.EmployeeAccessorImpl;
 import jp.ne.naokiur.em.dao.PostAccessorImpl;
-import jp.ne.naokiur.em.dao.UsersAccessorImpl;
+import jp.ne.naokiur.em.dto.EmployeeDto;
 import jp.ne.naokiur.em.dto.PostDto;
-import jp.ne.naokiur.em.dto.UserDto;
 
 public class InitialContextListener implements ServletContextListener {
     @Override
@@ -19,25 +19,32 @@ public class InitialContextListener implements ServletContextListener {
     }
 
     private void initializeDB() {
-        UsersAccessorImpl.INSTANCE.createTable();
         EmployeeAccessorImpl.INSTANCE.createTable();
         PostAccessorImpl.INSTANCE.createTable();
 
-        String initialAccountUser = "admin";
-        String initialAccountPassword = "admin";
-        String initialAccount = UsersAccessorImpl.INSTANCE.selectUserId(initialAccountUser, initialAccountPassword);
+        String adminCount = EmployeeAccessorImpl.INSTANCE.selectCountByUserId("admin");
 
-        if (initialAccount == null || "".equals(initialAccount)) {
-            UsersAccessorImpl.INSTANCE.insertUser(new UserDto(initialAccountUser, initialAccountPassword));
+        if (adminCount == null || "".equals(adminCount) || "0".equals(adminCount)) {
+            EmployeeDto employee = new EmployeeDto();
+            employee.setUserId("admin");
+            employee.setPassword("admin");
+            employee.setFirstName("管理者");
+            employee.setLastName("担当");
+            employee.setAge(0);
+            employee.setPostCode("00");
+            employee.setEnterDate(new Timestamp(0));
+
+            EmployeeAccessorImpl.INSTANCE.insertUser(employee);
         }
 
-        String postCount = PostAccessorImpl.INSTANCE.selectPostCount();
+        String postCount = PostAccessorImpl.INSTANCE.selectCount();
         if (postCount == null || "".equals(postCount) || "0".equals(postCount)) {
 
             List<PostDto> postMap = new LinkedList<PostDto>() {
                 private static final long serialVersionUID = 1L;
 
                 {
+                    add(new PostDto("00", "管理部門"));
                     add(new PostDto("11", "第1ビジネスサービスグループ 年金・保険"));
                     add(new PostDto("12", "第1ビジネスサービスグループ 金融"));
                     add(new PostDto("21", "第2ビジネスサービスグループ AMP"));
