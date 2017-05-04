@@ -6,6 +6,20 @@ html {
     background-color: #EFFAED;
 }
 
+a {
+    text-decoration: none;
+    color: #6A6A6A;
+}
+
+a:hover {
+    color: #B5B5B5;
+}
+
+body {
+    color: #6A6A6A;
+
+}
+
 header {
     font-size: 24px;
     background-color: #81D674;

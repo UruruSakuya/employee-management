@@ -8,4 +8,4 @@
 <title>N Employee Management System - ${title}</title>
 </head>
 <body>
-    <header>NEMS - Employee Management</header>
+    <header><a href="${pageContext.request.contextPath}/user/menu">NEMS - Employee Management</a></header>
