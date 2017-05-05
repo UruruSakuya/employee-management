@@ -127,6 +127,14 @@ public class EmployeeModel {
             messagesList.add(new Messages(MessageResource.COMMON_MANDATORY, new String[]{"ユーザID"}));
         }
 
+        if (isExistText(this.password)) {
+            messagesList.add(new Messages(MessageResource.COMMON_MANDATORY, new String[]{"パスワード"}));
+        }
+
+        if (isExistText(this.passwordAgain)) {
+            messagesList.add(new Messages(MessageResource.COMMON_MANDATORY, new String[]{"パスワード(再入力)"}));
+        }
+
         if (isExistText(this.firstName)) {
             messagesList.add(new Messages(MessageResource.COMMON_MANDATORY, new String[]{"名字"}));
         }
@@ -141,6 +149,11 @@ public class EmployeeModel {
 
         if (this.age == null) {
             messagesList.add(new Messages(MessageResource.COMMON_MANDATORY, new String[]{"年齢"}));
+        }
+
+        if (!this.password.equals(this.passwordAgain)) {
+            messagesList.add(new Messages(MessageResource.EMPLOYEE_PASSWORD_UNMATCH));
+
         }
 
         if (!messagesList.isEmpty()) {
