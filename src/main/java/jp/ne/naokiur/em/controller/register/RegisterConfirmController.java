@@ -35,7 +35,7 @@ public class RegisterConfirmController extends HttpServlet {
 
         try {
             EmployeeModel model = new EmployeeModel(req.getParameter("user_id"), req.getParameter("password"),
-                    req.getParameter("passwordAgain"), req.getParameter("first_name"), req.getParameter("last_name"),
+                    req.getParameter("password_again"), req.getParameter("first_name"), req.getParameter("last_name"),
                     req.getParameter("post_code"), req.getParameter("age"), req.getParameter("enter_date"));
 
             model.validate();
