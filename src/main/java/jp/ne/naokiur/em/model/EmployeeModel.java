@@ -38,7 +38,7 @@ public class EmployeeModel {
 
         try {
             this.age = Integer.valueOf(String.valueOf(age));
-            this.enterDate = new Timestamp(new SimpleDateFormat("yyyy-mm-dd")
+            this.enterDate = new Timestamp(new SimpleDateFormat("yyyy-MM-dd")
                     .parse(String.valueOf(enterDate)).getTime());
         } catch (NumberFormatException e) {
             messagesList.add(new Messages(MessageResource.COMMON_MANDATORY, new String[]{"年齢"}));
@@ -107,7 +107,7 @@ public class EmployeeModel {
         condtion.setFromAge(fromAge != null && !fromAge.equals("") ? Integer.valueOf(fromAge.toString()) : null);
         condtion.setToAge(toAge != null && !toAge.equals("") ? Integer.valueOf(toAge.toString()) : null);
 
-        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat sdt = new SimpleDateFormat("yyyy-MM-dd");
 
         try {
             condtion.setFromEnterDate(fromEnterDate != null && !fromEnterDate.equals("") ? new Timestamp((sdt.parse(String.valueOf(fromEnterDate)).getTime())) : null);
