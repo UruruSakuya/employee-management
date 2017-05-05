@@ -1,13 +1,22 @@
 package jp.ne.naokiur.em.dao;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 
 import jp.ne.naokiur.em.dto.DisplayEmployeeDto;
 import jp.ne.naokiur.em.dto.EmployeeDto;
@@ -17,6 +26,43 @@ import jp.ne.naokiur.em.exception.SystemException;
 public enum EmployeeAccessorImpl implements DBAccessable {
     INSTANCE;
     private final static ResourceBundle ENV = ResourceBundle.getBundle("environment");
+
+    private enum Encryption {
+        INSTANCE;
+        private final static String ALGORITHM = "AES";
+        // TODO キーを公開すべきではないので、直書きすべきではない。
+        private final static String KEY = "1234567890123456";
+
+        public String encrypt(String password) {
+            try {
+                Cipher cipher = Cipher.getInstance(ALGORITHM);
+                cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(KEY.getBytes(), ALGORITHM));
+                byte[] finalCipher = cipher.doFinal(password.getBytes());
+
+                return new String(Base64.getEncoder().encode(finalCipher));
+
+            } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
+                new SystemException(e);
+            }
+
+            return "";
+        }
+
+        public String decrpt(String encryptedPassword) {
+
+            byte[] decodedPassword = Base64.getDecoder().decode(encryptedPassword.getBytes());
+
+            try {
+                Cipher cipher = Cipher.getInstance(ALGORITHM);
+                cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(KEY.getBytes(), ALGORITHM));
+                return new String(cipher.doFinal(decodedPassword));
+            } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
+                new SystemException(e);
+            }
+
+            return "";
+        }
+    }
 
     @Override
     public void createTable() {
@@ -59,7 +105,7 @@ public enum EmployeeAccessorImpl implements DBAccessable {
 
             try (PreparedStatement stmt = conn.prepareStatement(insertEmployeeSql)) {
                 stmt.setString(1, employee.getUserId());
-                stmt.setString(2, employee.getPassword());
+                stmt.setString(2, Encryption.INSTANCE.encrypt(employee.getPassword()));
                 stmt.setString(3, employee.getFirstName());
                 stmt.setString(4, employee.getLastName());
                 stmt.setString(5, employee.getPostCode());
@@ -85,7 +131,7 @@ public enum EmployeeAccessorImpl implements DBAccessable {
                 ENV.getString("db.password"))) {
             String selectEmployeeSql = "SELECT user_id FROM EM_EMPLOYEES "
                     + "WHERE user_id = '" + userId + "' AND "
-                    + "password = '" + password + "';";
+                    + "password = '" + Encryption.INSTANCE.encrypt(password) + "';";
 
             try (PreparedStatement stmt = conn.prepareStatement(selectEmployeeSql)) {
                 ResultSet resultSet = stmt.executeQuery();
