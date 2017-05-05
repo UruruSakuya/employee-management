@@ -33,9 +33,10 @@ public class RegisterCompleteController extends HttpServlet {
 
         try {
 
-            EmployeeModel model = new EmployeeModel(session.getAttribute("user_id"),
-                    session.getAttribute("first_name"), session.getAttribute("last_name"), session.getAttribute("post_code"),
-                    session.getAttribute("age"), session.getAttribute("enter_date"));
+            EmployeeModel model = new EmployeeModel(session.getAttribute("user_id"), session.getAttribute("password"),
+                    session.getAttribute("passwordAgain"), session.getAttribute("first_name"),
+                    session.getAttribute("last_name"), session.getAttribute("post_code"), session.getAttribute("age"),
+                    session.getAttribute("enter_date"));
 
             model.register();
 

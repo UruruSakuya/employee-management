@@ -34,13 +34,15 @@ public class RegisterConfirmController extends HttpServlet {
         HttpSession session = req.getSession();
 
         try {
-            EmployeeModel model = new EmployeeModel(req.getParameter("user_id"),
-                    req.getParameter("first_name"), req.getParameter("last_name"), req.getParameter("post_code"),
-                    req.getParameter("age"), req.getParameter("enter_date"));
+            EmployeeModel model = new EmployeeModel(req.getParameter("user_id"), req.getParameter("password"),
+                    req.getParameter("passwordAgain"), req.getParameter("first_name"), req.getParameter("last_name"),
+                    req.getParameter("post_code"), req.getParameter("age"), req.getParameter("enter_date"));
 
             model.validate();
 
             session.setAttribute("user_id", model.getUserId());
+            session.setAttribute("password", model.getPassword());
+            session.setAttribute("password_again", model.getPasswordAgain());
             session.setAttribute("first_name", model.getFirstName());
             session.setAttribute("last_name", model.getLastName());
             session.setAttribute("post_code", model.getPostCode());

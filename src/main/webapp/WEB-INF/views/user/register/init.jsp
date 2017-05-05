@@ -13,6 +13,12 @@
                     id="user_id" name="user_id" />
             </div>
             <div class="register-item">
+                <label for="password">パスワード</label><input type="password"
+                    id="password" name="password" />
+                <label for="password_again">パスワード(再入力)</label><input type="password"
+                    id="password_again" name="password_again" />
+            </div>
+            <div class="register-item">
                 <label for="name">名前</label> <input type="text"
                     id="first_name" name="first_name" /> <input
                     type="text" id="last_name" name="last_name" />

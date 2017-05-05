@@ -15,6 +15,8 @@ import jp.ne.naokiur.em.exception.ModelValidatorException;
 
 public class EmployeeModel {
     private String userId;
+    private String password;
+    private String passwordAgain;
     private String firstName;
     private String lastName;
     private String postCode;
@@ -24,8 +26,10 @@ public class EmployeeModel {
     public EmployeeModel() {
     }
 
-    public <T> EmployeeModel(T userId, T firstName, T lastName, T postCode, T age, T enterDate) throws ModelValidatorException {
+    public <T> EmployeeModel(T userId, T password, T passwordAgain, T firstName, T lastName, T postCode, T age, T enterDate) throws ModelValidatorException {
         this.userId = String.valueOf(userId);
+        this.password = String.valueOf(password);
+        this.passwordAgain = String.valueOf(passwordAgain);
         this.firstName = String.valueOf(firstName);
         this.lastName = String.valueOf(lastName);
         this.postCode = String.valueOf(postCode);
@@ -48,6 +52,14 @@ public class EmployeeModel {
 
     public String getUserId() {
         return userId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getPasswordAgain() {
+        return passwordAgain;
     }
 
     public String getFirstName() {
@@ -73,6 +85,7 @@ public class EmployeeModel {
     public void register() {
         EmployeeDto dto = new EmployeeDto();
         dto.setUserId(this.userId);
+        dto.setPassword(this.password);
         dto.setFirstName(this.firstName);
         dto.setLastName(this.lastName);
         dto.setPostCode(this.postCode);
